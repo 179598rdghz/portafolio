@@ -295,11 +295,11 @@
     }
 
     /* Contenedor específico para badge de Credly */
-    .credly-badge-container {
+    .credly-badge-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 1rem 0;
+      min-height: 200px;
     }
 
     .badge-link {
@@ -494,7 +494,7 @@
         pdf: "certificados/intro-ciberseguridad.pdf",
         badgeTipo: "imagen",
         badgeImg: "badges/intro-ciberseguridad.png",
-        badgeLink: "https://www.credly.com/...",
+        badgeLink: "",
         resena: "Esta certificación me permitió comprender los fundamentos de la ciberseguridad, incluyendo los principios de confidencialidad, integridad y disponibilidad (CIA). Aprendí sobre los diferentes tipos de amenazas, vulnerabilidades y riesgos que enfrentan las organizaciones en el entorno digital actual.",
         experiencia: "El curso fue una experiencia enriquecedora que despertó mi interés por la seguridad informática. Los laboratorios prácticos me ayudaron a visualizar cómo se aplican los conceptos teóricos en situaciones reales. Recomiendo esta certificación a todos los que inician en este campo."
       },
@@ -504,7 +504,7 @@
         pdf: "certificados/conceptos-redes.pdf",
         badgeTipo: "imagen",
         badgeImg: "badges/conceptos-redes.png",
-        badgeLink: "https://www.credly.com/...",
+        badgeLink: "",
         resena: "En esta certificación adquirí conocimientos fundamentales sobre modelos OSI y TCP/IP, direccionamiento IP, subredes y protocolos de comunicación. Comprendí cómo fluye la información a través de las redes y los puntos críticos donde se deben aplicar controles de seguridad.",
         experiencia: "Los conceptos de redes son esenciales para cualquier profesional de seguridad. Este curso me dio las bases necesarias para entender ataques como sniffing, spoofing y MITM. La parte práctica con Wireshark fue especialmente útil."
       },
@@ -514,7 +514,7 @@
         pdf: "certificados/dispositivos-red.pdf",
         badgeTipo: "imagen",
         badgeImg: "badges/dispositivos-red.png",
-        badgeLink: "https://www.credly.com/...",
+        badgeLink: "",
         resena: "Esta certificación cubre la configuración segura de routers, switches y firewalls. Aprendí sobre hardening de dispositivos, gestión de accesos, VLANs, ACLs y buenas prácticas para la administración remota segura.",
         experiencia: "Configurar dispositivos reales en laboratorios virtuales me dio confianza para trabajar en entornos empresariales. Entendí la importancia de deshabilitar servicios innecesarios y mantener firmware actualizado."
       },
@@ -524,7 +524,7 @@
         pdf: "certificados/seguridad-terminales.pdf",
         badgeTipo: "imagen",
         badgeImg: "badges/seguridad-terminales.png",
-        badgeLink: "https://www.credly.com/...",
+        badgeLink: "",
         resena: "Esta certificación se enfoca en la protección de endpoints: estaciones de trabajo, servidores y dispositivos móviles. Abarca antivirus, EDR, gestión de parches, políticas de contraseñas y cifrado de discos.",
         experiencia: "Aprendí a implementar soluciones de seguridad en terminales y a monitorear eventos sospechosos. La parte de respuesta a incidentes en endpoints fue particularmente valiosa para mi desarrollo profesional."
       },
@@ -532,7 +532,7 @@
         id: 4,
         titulo: "Administración de amenazas cibernéticas",
         pdf: "certificados/amenazas-ciberneticas.pdf",
-        badgeTipo: "credly",  // Tipo especial para Credly
+        badgeTipo: "credly",
         credlyBadgeId: "6b0c3cfb-55b2-41df-8dee-0b185bab4522",
         credlyHost: "https://www.credly.com",
         resena: "Esta certificación cubre la identificación, análisis y mitigación de amenazas cibernéticas. Incluye threat intelligence, frameworks como MITRE ATT&CK, y estrategias para establecer un programa de gestión de amenazas.",
@@ -544,7 +544,7 @@
         pdf: "certificados/analista-junior.pdf",
         badgeTipo: "imagen",
         badgeImg: "badges/analista-junior.png",
-        badgeLink: "https://www.credly.com/...",
+        badgeLink: "",
         resena: "Esta certificación está diseñada para preparar a los estudiantes para roles de entrada en ciberseguridad. Incluye temas como monitorización de seguridad, análisis de logs, gestión de vulnerabilidades y respuesta a incidentes básica.",
         experiencia: "Este curso me dio una visión clara de las responsabilidades diarias de un analista junior. Los escenarios simulados fueron muy realistas y me ayudaron a desarrollar habilidades prácticas para el entorno laboral."
       },
@@ -554,7 +554,7 @@
         pdf: "certificados/hacker-etico.pdf",
         badgeTipo: "imagen",
         badgeImg: "badges/hacker-etico.png",
-        badgeLink: "https://www.credly.com/...",
+        badgeLink: "",
         resena: "Esta certificación enseña las técnicas y herramientas utilizadas por los hackers éticos para identificar vulnerabilidades antes que los atacantes. Incluye reconocimiento, escaneo, explotación y reporte de hallazgos.",
         experiencia: "La perspectiva ofensiva que adquirí es invaluable. Aplicar metodologías de pentesting en entornos controlados me permitió entender las debilidades comunes y cómo remediarlas efectivamente."
       }
@@ -567,11 +567,35 @@
     // Función para generar el HTML del badge según el tipo
     function generarBadgeHTML(cert) {
       if (cert.badgeTipo === 'credly') {
+        // Generamos un div con un ID único para que Credly lo detecte
+        const containerId = `credly-badge-${cert.id}`;
+        
+        // Programamos la inserción del badge después de que el DOM esté listo
+        setTimeout(() => {
+          const badgeContainer = document.getElementById(containerId);
+          if (badgeContainer && window.CredlyEmbed) {
+            // Limpiar y volver a cargar
+            badgeContainer.innerHTML = '';
+            const badgeDiv = document.createElement('div');
+            badgeDiv.setAttribute('data-iframe-width', '150');
+            badgeDiv.setAttribute('data-iframe-height', '270');
+            badgeDiv.setAttribute('data-share-badge-id', cert.credlyBadgeId);
+            badgeDiv.setAttribute('data-share-badge-host', cert.credlyHost);
+            badgeContainer.appendChild(badgeDiv);
+            
+            // Forzar recarga del script de Credly
+            if (window.CredlyEmbed && window.CredlyEmbed.reload) {
+              window.CredlyEmbed.reload();
+            }
+          }
+        }, 100);
+        
         return `
-          <div class="badge-img">
-            <div data-iframe-width="150" data-iframe-height="270" 
-                 data-share-badge-id="${cert.credlyBadgeId}" 
-                 data-share-badge-host="${cert.credlyHost}"></div>
+          <div id="${containerId}" class="credly-badge-wrapper" style="min-height: 270px; display: flex; justify-content: center; align-items: center;">
+            <div style="text-align: center;">
+              <i class="fas fa-spinner fa-pulse" style="font-size: 2rem; color: #82AAE3;"></i>
+              <p style="font-size: 0.8rem; margin-top: 0.5rem;">Cargando badge...</p>
+            </div>
           </div>
           <a href="${cert.credlyHost}/badges/${cert.credlyBadgeId}" target="_blank" class="badge-link">
             <i class="fas fa-external-link-alt"></i> Verificar Badge en Credly
@@ -582,11 +606,16 @@
           ? `<img src="${cert.badgeImg}" alt="Badge ${cert.titulo}">` 
           : `<i class="fas fa-certificate" style="font-size: 4rem; color: #82AAE3;"></i>`;
         
+        let linkHTML = '';
+        if (cert.badgeLink && cert.badgeLink !== '') {
+          linkHTML = `<a href="${cert.badgeLink}" target="_blank" class="badge-link"><i class="fas fa-external-link-alt"></i> Verificar Badge</a>`;
+        }
+        
         return `
           <div class="badge-img">
             ${badgeImgHTML}
           </div>
-          ${cert.badgeLink ? `<a href="${cert.badgeLink}" target="_blank" class="badge-link"><i class="fas fa-external-link-alt"></i> Verificar Badge</a>` : '<p style="color:#94a3b8; font-size:0.8rem;">Enlace no disponible</p>'}
+          ${linkHTML}
         `;
       }
     }
@@ -641,16 +670,6 @@
           </div>
         </div>
       `;
-      
-      // Forzar recarga del script de Credly si es necesario
-      if (cert.badgeTipo === 'credly' && window.CredlyEmbed) {
-        // Si el script de Credly está disponible, intentar recargar
-        setTimeout(() => {
-          if (window.CredlyEmbed && window.CredlyEmbed.reload) {
-            window.CredlyEmbed.reload();
-          }
-        }, 100);
-      }
     }
 
     // Función para cambiar certificación activa
