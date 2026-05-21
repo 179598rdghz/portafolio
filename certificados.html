@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificaciones | Portafolio Seguridad Informática</title>
+  
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      font-family: "DM Sans", sans-serif;
+      background-color: #EAFDFC;
+      color: #0b1220;
+      scroll-behavior: smooth;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(0.75rem);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Header */
+    .header {
+      width: 100%;
+      background-color: #ffffff;
+      border-bottom: 1px solid #BFEAF5;
+    }
+
+    .header-top {
+      padding: 3rem 7vw 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .brand {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .brand small {
+      color: #475569;
+    }
+
+    .brand.center {
+      text-align: center;
+    }
+
+    .brand.right {
+      text-align: right;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.5rem 7vw 2rem;
+      border-top: 1px solid #BFEAF5;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #0b1220;
+      position: relative;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.4rem;
+      width: 0;
+      height: 1px;
+      background-color: #82AAE3;
+      transition: width 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #82AAE3;
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Contenido principal */
+    .contenido {
+      padding: 4rem 7vw;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: reveal 0.8s ease-out;
+    }
+
+    .page-header h1 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      color: #0b1220;
+    }
+
+    .page-header p {
+      font-size: 1rem;
+      color: #475569;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Grid de botones de certificación */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .cert-boton {
+      background-color: #ffffff;
+      border: 1px solid #BFEAF5;
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #0b1220;
+    }
+
+    .cert-boton i {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.8rem;
+      color: #82AAE3;
+    }
+
+    .cert-boton:hover {
+      transform: translateY(-5px);
+      border-color: #82AAE3;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .cert-boton.active {
+      background-color: #82AAE3;
+      border-color: #82AAE3;
+      color: white;
+    }
+
+    .cert-boton.active i {
+      color: white;
+    }
+
+    /* Plantilla de contenido */
+    .plantilla-cert {
+      background-color: #ffffff;
+      border-radius: 16px;
+      border: 1px solid #BFEAF5;
+      overflow: hidden;
+      animation: reveal 0.5s ease-out;
+    }
+
+    .plantilla-header {
+      background-color: #f8fafc;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #BFEAF5;
+    }
+
+    .plantilla-header h2 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.5rem;
+      color: #0b1220;
+      margin-bottom: 0.3rem;
+    }
+
+    .plantilla-header .subtitulo {
+      color: #82AAE3;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .plantilla-body {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    /* Columna izquierda - PDF y Badge */
+    .col-pdf-badge {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .pdf-box {
+      background-color: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #BFEAF5;
+      overflow: hidden;
+    }
+
+    .pdf-box-header {
+      padding: 0.8rem 1rem;
+      background-color: #ffffff;
+      border-bottom: 1px solid #BFEAF5;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .pdf-box-header i {
+      color: #dc2626;
+    }
+
+    .pdf-viewer {
+      width: 100%;
+      height: 300px;
+      border: none;
+    }
+
+    .pdf-placeholder {
+      width: 100%;
+      height: 300px;
+      background-color: #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: #94a3b8;
+    }
+
+    .pdf-placeholder i {
+      font-size: 3rem;
+    }
+
+    .badge-box {
+      background-color: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #BFEAF5;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .badge-box h4 {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: #0b1220;
+    }
+
+    .badge-img {
+      max-width: 180px;
+      margin: 0 auto 1rem;
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 0.5rem;
+    }
+
+    .badge-img img {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Contenedor específico para badge de Credly */
+    .credly-badge-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0;
+    }
+
+    .badge-link {
+      display: inline-block;
+      background-color: transparent;
+      border: 1px solid #82AAE3;
+      color: #82AAE3;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-top: 0.5rem;
+    }
+
+    .badge-link:hover {
+      background-color: #82AAE3;
+      color: white;
+    }
+
+    /* Columna derecha - Descripción y experiencia */
+    .col-texto {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .reseña-box, .experiencia-box {
+      background-color: #f8fafc;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid #BFEAF5;
+    }
+
+    .reseña-box h3, .experiencia-box h3 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: #0b1220;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .reseña-box h3 i, .experiencia-box h3 i {
+      color: #82AAE3;
+    }
+
+    .reseña-box p, .experiencia-box p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #1f2937;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #0f172a;
+      color: #EAFDFC;
+      padding: 3.5rem 7vw;
+      margin-top: 4rem;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 68.75rem) {
+      .header-top {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .brand.right {
+        text-align: center;
+      }
+      .plantilla-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .cert-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .cert-grid {
+        grid-template-columns: 1fr;
+      }
+      .plantilla-body {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <div class="brand">
+        <strong>Rodolfo Gutiérrez Hernández</strong><br>
+        <small>Alias: RGH</small>
+      </div>
+
+      <div class="brand center">
+        <strong>CNO V – Seguridad Informática</strong><br>
+        <small>Certificaciones</small>
+      </div>
+
+      <div class="brand right">
+        <strong>Universidad Politécnica de San Luis Potosí</strong><br>
+        <small>Semestre 10</small>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="actividades.html">Prácticas</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="phishing-quiz.html">Phishing Quiz</a>
+      <a href="plataformas.html">Plataformas</a>
+      <a href="lista-ascendente.html">SQL Injection</a>
+      <a href="certificaciones.html">Certificaciones</a>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="contenido">
+    <div class="page-header">
+      <h1>Certificaciones en Ciberseguridad</h1>
+      <p>PD05 - Reflexión profesional sobre certificaciones. Documentación de mi proceso de certificación y evidencia de aprendizaje.</p>
+    </div>
+
+    <!-- Botones de certificación -->
+    <div class="cert-grid" id="cert-grid">
+      <button class="cert-boton" data-cert="0">
+        <i class="fas fa-shield-alt"></i>
+        Introducción a la Ciberseguridad
+      </button>
+      <button class="cert-boton" data-cert="1">
+        <i class="fas fa-network-wired"></i>
+        Conceptos básicos de Redes
+      </button>
+      <button class="cert-boton" data-cert="2">
+        <i class="fas fa-router"></i>
+        Dispositivos de red y configuración inicial
+      </button>
+      <button class="cert-boton" data-cert="3">
+        <i class="fas fa-terminal"></i>
+        Seguridad en terminales
+      </button>
+      <button class="cert-boton" data-cert="4">
+        <i class="fas fa-bug"></i>
+        Administración de amenazas cibernéticas
+      </button>
+      <button class="cert-boton" data-cert="5">
+        <i class="fas fa-user-graduate"></i>
+        Carrera Profesional: Analista Junior
+      </button>
+      <button class="cert-boton" data-cert="6">
+        <i class="fas fa-user-secret"></i>
+        Hacker Ético
+      </button>
+    </div>
+
+    <!-- Plantilla de contenido -->
+    <div id="plantilla-cert" class="plantilla-cert">
+      <!-- Se llena dinámicamente con JavaScript -->
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 · Portafolio Digital de Seguridad Informática · CNO V</p>
+    <p style="margin-top: 0.5rem;">Rodolfo Gutiérrez Hernández · Universidad Politécnica de San Luis Potosí</p>
+  </footer>
+
+  <!-- Script de Credly para badges -->
+  <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+
+  <script>
+    // Datos de las certificaciones
+    const certificaciones = [
+      {
+        id: 0,
+        titulo: "Introducción a la Ciberseguridad",
+        pdf: "certificados/intro-ciberseguridad.pdf",
+        badgeTipo: "imagen",
+        badgeImg: "badges/intro-ciberseguridad.png",
+        badgeLink: "https://www.credly.com/...",
+        resena: "Esta certificación me permitió comprender los fundamentos de la ciberseguridad, incluyendo los principios de confidencialidad, integridad y disponibilidad (CIA). Aprendí sobre los diferentes tipos de amenazas, vulnerabilidades y riesgos que enfrentan las organizaciones en el entorno digital actual.",
+        experiencia: "El curso fue una experiencia enriquecedora que despertó mi interés por la seguridad informática. Los laboratorios prácticos me ayudaron a visualizar cómo se aplican los conceptos teóricos en situaciones reales. Recomiendo esta certificación a todos los que inician en este campo."
+      },
+      {
+        id: 1,
+        titulo: "Conceptos básicos de Redes",
+        pdf: "certificados/conceptos-redes.pdf",
+        badgeTipo: "imagen",
+        badgeImg: "badges/conceptos-redes.png",
+        badgeLink: "https://www.credly.com/...",
+        resena: "En esta certificación adquirí conocimientos fundamentales sobre modelos OSI y TCP/IP, direccionamiento IP, subredes y protocolos de comunicación. Comprendí cómo fluye la información a través de las redes y los puntos críticos donde se deben aplicar controles de seguridad.",
+        experiencia: "Los conceptos de redes son esenciales para cualquier profesional de seguridad. Este curso me dio las bases necesarias para entender ataques como sniffing, spoofing y MITM. La parte práctica con Wireshark fue especialmente útil."
+      },
+      {
+        id: 2,
+        titulo: "Dispositivos de red y configuración inicial",
+        pdf: "certificados/dispositivos-red.pdf",
+        badgeTipo: "imagen",
+        badgeImg: "badges/dispositivos-red.png",
+        badgeLink: "https://www.credly.com/...",
+        resena: "Esta certificación cubre la configuración segura de routers, switches y firewalls. Aprendí sobre hardening de dispositivos, gestión de accesos, VLANs, ACLs y buenas prácticas para la administración remota segura.",
+        experiencia: "Configurar dispositivos reales en laboratorios virtuales me dio confianza para trabajar en entornos empresariales. Entendí la importancia de deshabilitar servicios innecesarios y mantener firmware actualizado."
+      },
+      {
+        id: 3,
+        titulo: "Seguridad en terminales",
+        pdf: "certificados/seguridad-terminales.pdf",
+        badgeTipo: "imagen",
+        badgeImg: "badges/seguridad-terminales.png",
+        badgeLink: "https://www.credly.com/...",
+        resena: "Esta certificación se enfoca en la protección de endpoints: estaciones de trabajo, servidores y dispositivos móviles. Abarca antivirus, EDR, gestión de parches, políticas de contraseñas y cifrado de discos.",
+        experiencia: "Aprendí a implementar soluciones de seguridad en terminales y a monitorear eventos sospechosos. La parte de respuesta a incidentes en endpoints fue particularmente valiosa para mi desarrollo profesional."
+      },
+      {
+        id: 4,
+        titulo: "Administración de amenazas cibernéticas",
+        pdf: "certificados/amenazas-ciberneticas.pdf",
+        badgeTipo: "credly",  // Tipo especial para Credly
+        credlyBadgeId: "6b0c3cfb-55b2-41df-8dee-0b185bab4522",
+        credlyHost: "https://www.credly.com",
+        resena: "Esta certificación cubre la identificación, análisis y mitigación de amenazas cibernéticas. Incluye threat intelligence, frameworks como MITRE ATT&CK, y estrategias para establecer un programa de gestión de amenazas.",
+        experiencia: "El conocimiento sobre TTPs de adversarios y cómo aplicar inteligencia de amenazas ha cambiado mi perspectiva defensiva. Ahora pienso como atacante para anticiparme a posibles brechas. Esta certificación me ha preparado para enfrentar amenazas avanzadas en entornos empresariales."
+      },
+      {
+        id: 5,
+        titulo: "Carrera Profesional de Analista Junior en Ciberseguridad",
+        pdf: "certificados/analista-junior.pdf",
+        badgeTipo: "imagen",
+        badgeImg: "badges/analista-junior.png",
+        badgeLink: "https://www.credly.com/...",
+        resena: "Esta certificación está diseñada para preparar a los estudiantes para roles de entrada en ciberseguridad. Incluye temas como monitorización de seguridad, análisis de logs, gestión de vulnerabilidades y respuesta a incidentes básica.",
+        experiencia: "Este curso me dio una visión clara de las responsabilidades diarias de un analista junior. Los escenarios simulados fueron muy realistas y me ayudaron a desarrollar habilidades prácticas para el entorno laboral."
+      },
+      {
+        id: 6,
+        titulo: "Hacker Ético",
+        pdf: "certificados/hacker-etico.pdf",
+        badgeTipo: "imagen",
+        badgeImg: "badges/hacker-etico.png",
+        badgeLink: "https://www.credly.com/...",
+        resena: "Esta certificación enseña las técnicas y herramientas utilizadas por los hackers éticos para identificar vulnerabilidades antes que los atacantes. Incluye reconocimiento, escaneo, explotación y reporte de hallazgos.",
+        experiencia: "La perspectiva ofensiva que adquirí es invaluable. Aplicar metodologías de pentesting en entornos controlados me permitió entender las debilidades comunes y cómo remediarlas efectivamente."
+      }
+    ];
+
+    const plantillaContainer = document.getElementById('plantilla-cert');
+    const botones = document.querySelectorAll('.cert-boton');
+    let certificacionActual = 0;
+
+    // Función para generar el HTML del badge según el tipo
+    function generarBadgeHTML(cert) {
+      if (cert.badgeTipo === 'credly') {
+        return `
+          <div class="badge-img">
+            <div data-iframe-width="150" data-iframe-height="270" 
+                 data-share-badge-id="${cert.credlyBadgeId}" 
+                 data-share-badge-host="${cert.credlyHost}"></div>
+          </div>
+          <a href="${cert.credlyHost}/badges/${cert.credlyBadgeId}" target="_blank" class="badge-link">
+            <i class="fas fa-external-link-alt"></i> Verificar Badge en Credly
+          </a>
+        `;
+      } else {
+        const badgeImgHTML = (cert.badgeImg && cert.badgeImg !== '') 
+          ? `<img src="${cert.badgeImg}" alt="Badge ${cert.titulo}">` 
+          : `<i class="fas fa-certificate" style="font-size: 4rem; color: #82AAE3;"></i>`;
+        
+        return `
+          <div class="badge-img">
+            ${badgeImgHTML}
+          </div>
+          ${cert.badgeLink ? `<a href="${cert.badgeLink}" target="_blank" class="badge-link"><i class="fas fa-external-link-alt"></i> Verificar Badge</a>` : '<p style="color:#94a3b8; font-size:0.8rem;">Enlace no disponible</p>'}
+        `;
+      }
+    }
+
+    // Función para renderizar la plantilla
+    function renderizarCertificacion(index) {
+      const cert = certificaciones[index];
+      
+      let pdfHTML = '';
+      if (cert.pdf && cert.pdf !== '') {
+        pdfHTML = `<iframe src="${cert.pdf}" class="pdf-viewer" title="PDF ${cert.titulo}"></iframe>`;
+      } else {
+        pdfHTML = `
+          <div class="pdf-placeholder">
+            <i class="fas fa-file-pdf"></i>
+            <p>PDF no disponible</p>
+            <small>Sube el certificado a la carpeta especificada</small>
+          </div>
+        `;
+      }
+
+      const badgeHTML = generarBadgeHTML(cert);
+
+      plantillaContainer.innerHTML = `
+        <div class="plantilla-header">
+          <h2>${cert.titulo}</h2>
+          <div class="subtitulo">Certificación Oficial</div>
+        </div>
+        <div class="plantilla-body">
+          <div class="col-pdf-badge">
+            <div class="pdf-box">
+              <div class="pdf-box-header">
+                <i class="fas fa-file-pdf"></i>
+                <span>Certificado</span>
+              </div>
+              ${pdfHTML}
+            </div>
+            <div class="badge-box">
+              <h4>Badge Digital</h4>
+              ${badgeHTML}
+            </div>
+          </div>
+          <div class="col-texto">
+            <div class="reseña-box">
+              <h3><i class="fas fa-book-open"></i> Reseña</h3>
+              <p>${cert.resena}</p>
+            </div>
+            <div class="experiencia-box">
+              <h3><i class="fas fa-user-graduate"></i> Experiencia Personal</h3>
+              <p>${cert.experiencia}</p>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Forzar recarga del script de Credly si es necesario
+      if (cert.badgeTipo === 'credly' && window.CredlyEmbed) {
+        // Si el script de Credly está disponible, intentar recargar
+        setTimeout(() => {
+          if (window.CredlyEmbed && window.CredlyEmbed.reload) {
+            window.CredlyEmbed.reload();
+          }
+        }, 100);
+      }
+    }
+
+    // Función para cambiar certificación activa
+    function cambiarCertificacion(index) {
+      certificacionActual = index;
+      
+      botones.forEach((btn, i) => {
+        if (i === index) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      
+      renderizarCertificacion(index);
+    }
+
+    // Event listeners
+    botones.forEach((btn, index) => {
+      btn.addEventListener('click', () => cambiarCertificacion(index));
+    });
+
+    // Cargar primera certificación
+    renderizarCertificacion(0);
+    botones[0].classList.add('active');
+  </script>
+</body>
+</html>
